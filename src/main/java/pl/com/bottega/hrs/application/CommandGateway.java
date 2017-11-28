@@ -2,6 +2,7 @@ package pl.com.bottega.hrs.application;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import pl.com.bottega.hrs.application.handlers.Handler;
 import pl.com.bottega.hrs.model.commands.Command;
 import pl.com.bottega.hrs.model.commands.CommandInvalidException;
 import pl.com.bottega.hrs.model.commands.ValidationErrors;

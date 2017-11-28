@@ -2,6 +2,8 @@ package pl.com.bottega.hrs.infrastructure;
 
 import org.springframework.stereotype.Component;
 import pl.com.bottega.hrs.application.*;
+import pl.com.bottega.hrs.application.dtos.BasicEmployeeDto;
+import pl.com.bottega.hrs.application.dtos.DetailedEmployeeDto;
 import pl.com.bottega.hrs.model.*;
 
 import javax.persistence.EntityManager;

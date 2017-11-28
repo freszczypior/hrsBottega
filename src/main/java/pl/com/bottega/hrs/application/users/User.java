@@ -1,5 +1,7 @@
 package pl.com.bottega.hrs.application.users;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +14,7 @@ public class User {
     @GeneratedValue
     private Integer id;
 
+    @Getter
     private String login;
 
     private String password;

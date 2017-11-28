@@ -1,33 +1,32 @@
-package pl.com.bottega.hrs.application;
+package pl.com.bottega.hrs.application.handlers;
 
-import com.sun.corba.se.impl.activation.CommandHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.hrs.model.Employee;
+import pl.com.bottega.hrs.model.commands.ChangeEmployeeTitleCommand;
 import pl.com.bottega.hrs.model.commands.Command;
-import pl.com.bottega.hrs.model.commands.FireEmployeeCommand;
 import pl.com.bottega.hrs.model.repositories.EmployeeRepository;
 
 @Component
-public class FireEmployeeHandler implements Handler<FireEmployeeCommand> {
+public class ChangeEmployeeTitleHandler implements Handler<ChangeEmployeeTitleCommand> {
 
     private EmployeeRepository employeeRepository;
 
-    public FireEmployeeHandler(EmployeeRepository employeeRepository){
+    public ChangeEmployeeTitleHandler(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
     @Transactional
-    public void handle(FireEmployeeCommand cmd) {
+    public void handle(ChangeEmployeeTitleCommand cmd) {
         Employee employee = employeeRepository.get(cmd.getEmpNo());
-        employee.fire();
+        employee.changeTitle(cmd.getTitle());
         employeeRepository.save(employee);
     }
 
     @Override
     public Class<? extends Command> getSupportedCommandClass() {
-        return FireEmployeeCommand.class;
+        return ChangeEmployeeTitleCommand.class;
     }
 
 }

@@ -1,10 +1,11 @@
-package pl.com.bottega.hrs.application;
+package pl.com.bottega.hrs.application.handlers;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.hrs.model.Department;
 import pl.com.bottega.hrs.model.commands.AddDepartmentCommand;
 import pl.com.bottega.hrs.model.commands.Command;
+import pl.com.bottega.hrs.model.commands.ValidationErrors;
 import pl.com.bottega.hrs.model.repositories.DepartmentRepository;
 
 

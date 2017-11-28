@@ -1,4 +1,4 @@
-package pl.com.bottega.hrs.application;
+package pl.com.bottega.hrs.application.handlers;
 
 import com.sun.corba.se.impl.activation.CommandHandler;
 import org.springframework.stereotype.Component;

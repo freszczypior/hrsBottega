@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.com.bottega.hrs.application.*;
+import pl.com.bottega.hrs.application.dtos.DetailedEmployeeDto;
+import pl.com.bottega.hrs.application.handlers.AddDepartmentHandler;
+import pl.com.bottega.hrs.application.handlers.AddEmployeeHandler;
+import pl.com.bottega.hrs.application.handlers.ChangeEmployeeTitleHandler;
 import pl.com.bottega.hrs.model.Address;
 import pl.com.bottega.hrs.model.Gender;
 import pl.com.bottega.hrs.model.commands.AddDepartmentCommand;
@@ -13,7 +17,6 @@ import pl.com.bottega.hrs.model.commands.AddEmployeeCommand;
 import pl.com.bottega.hrs.model.commands.ChangeEmployeeTitleCommand;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 

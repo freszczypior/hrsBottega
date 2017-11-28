@@ -1,4 +1,4 @@
-package pl.com.bottega.hrs.application;
+package pl.com.bottega.hrs.application.handlers;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

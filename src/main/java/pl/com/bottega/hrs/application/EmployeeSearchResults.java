@@ -2,6 +2,7 @@ package pl.com.bottega.hrs.application;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.com.bottega.hrs.application.dtos.BasicEmployeeDto;
 
 import java.util.List;
 

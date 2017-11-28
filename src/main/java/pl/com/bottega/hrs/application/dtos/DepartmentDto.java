@@ -1,4 +1,4 @@
-package pl.com.bottega.hrs.application;
+package pl.com.bottega.hrs.application.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

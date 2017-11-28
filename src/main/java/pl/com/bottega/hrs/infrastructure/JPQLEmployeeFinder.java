@@ -1,6 +1,6 @@
 package pl.com.bottega.hrs.infrastructure;
 
-import pl.com.bottega.hrs.application.DetailedEmployeeDto;
+import pl.com.bottega.hrs.application.dtos.DetailedEmployeeDto;
 import pl.com.bottega.hrs.application.EmployeeFinder;
 import pl.com.bottega.hrs.application.EmployeeSearchCriteria;
 import pl.com.bottega.hrs.application.EmployeeSearchResults;
