@@ -10,13 +10,13 @@ public class EmployeesController {
     private EmployeeFinder employeeFinder;
     private CommandGateway gateway;
 
-    public EmployeesController(EmployeeFinder employeeFinder, CommandGateway gateway){
+    public EmployeesController(EmployeeFinder employeeFinder, CommandGateway gateway) {
         this.employeeFinder = employeeFinder;
         this.gateway = gateway;
     }
 
     @GetMapping("/employees/{empNo}")
-    public DetailedEmployeeDto get(@PathVariable Integer empNo){
+    public DetailedEmployeeDto get(@PathVariable Integer empNo) {
 
         return employeeFinder.getEmployeeDetails(empNo);
     }

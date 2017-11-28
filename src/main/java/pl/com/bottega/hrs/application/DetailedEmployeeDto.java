@@ -1,5 +1,7 @@
 package pl.com.bottega.hrs.application;
 
+import lombok.Getter;
+import lombok.Setter;
 import pl.com.bottega.hrs.model.*;
 
 import java.time.LocalDate;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
 public class DetailedEmployeeDto extends BasicEmployeeDto {
 
     private LocalDate birthDate, hireDate;
@@ -36,93 +40,13 @@ public class DetailedEmployeeDto extends BasicEmployeeDto {
         this.title = employee.getCurrentTitle().map(Title::getName);
         this.gender = employee.getGender();
         this.departmentNumbers = employee.getCurrentDepartments().stream().
-                map(Department::getNumber).
+                map(Department::getDeptNo).
                 collect(Collectors.toList());
         this.salaryHistory = employee.getSalaries().stream().
                 map(SalaryDto::new).collect(Collectors.toList());
-        this.departmentHistory = employee.getDepartmentsHistory().stream().
+        this.departmentHistory = employee.getDepartmentAssignments().stream().
                 map(DepartmentDto::new).collect(Collectors.toList());
-        this.titleHistory = employee.getTitleHistory().stream().
+        this.titleHistory = employee.getTitles().stream().
                 map(TitleDto::new).collect(Collectors.toList());
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public LocalDate getHireDate() {
-        return hireDate;
-    }
-
-    public void setHireDate(LocalDate hireDate) {
-        this.hireDate = hireDate;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Optional<Integer> getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Optional<Integer> salary) {
-        this.salary = salary;
-    }
-
-    public Optional<String> getTitle() {
-        return title;
-    }
-
-    public void setTitle(Optional<String> title) {
-        this.title = title;
-    }
-
-    public List<String> getDepartmentNumbers() {
-        return departmentNumbers;
-    }
-
-    public void setDepartmentNumbers(List<String> departmentNumbers) {
-        this.departmentNumbers = departmentNumbers;
-    }
-
-    public List<SalaryDto> getSalaryHistory() {
-        return salaryHistory;
-    }
-
-    public void setSalaryHistory(List<SalaryDto> salaryHistory) {
-        this.salaryHistory = salaryHistory;
-    }
-
-    public List<DepartmentDto> getDepartmentHistory() {
-        return departmentHistory;
-    }
-
-    public void setDepartmentHistory(List<DepartmentDto> departmentHistory) {
-        this.departmentHistory = departmentHistory;
-    }
-
-    public List<TitleDto> getTitleHistory() {
-        return titleHistory;
-    }
-
-    public void setTitleHistory(List<TitleDto> titleHistory) {
-        this.titleHistory = titleHistory;
     }
 }

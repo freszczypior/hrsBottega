@@ -1,5 +1,6 @@
 package pl.com.bottega.hrs.model;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.com.bottega.hrs.infrastructure.StandardTimeProvider;
 
@@ -46,6 +47,7 @@ public class Salary {
     private TimeProvider timeProvider;
 
     @Column(name = "to_date")
+    @Getter
     private LocalDate toDate;
 
     Salary() {
@@ -76,10 +78,6 @@ public class Salary {
 
     public LocalDate getFromDate() {
         return id.fromDate;
-    }
-
-    public LocalDate getToDate() {
-        return toDate;
     }
 
     public void update(Integer newSalary) {

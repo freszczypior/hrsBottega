@@ -17,7 +17,7 @@
                       value="root"/>
 
             <property name="javax.persistence.jdbc.password"
-                      value="ols13"/>
+                      value="mysql"/>
 
             <property name="hibernate.show_sql"
                       value="true"/>
@@ -40,7 +40,7 @@
                       value="root"/>
 
             <property name="javax.persistence.jdbc.password"
-                      value="ols13"/>
+                      value="mysql"/>
 
             <property name="hibernate.show_sql"
                       value="true"/>

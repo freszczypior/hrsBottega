@@ -175,7 +175,7 @@ public class EmployeeFinderTest extends AcceptanceTest {
         employee().withLastName("Kowalski").withDepartment(d3).create();
 
         //when
-        criteria.setDepartmentNumbers(Arrays.asList(d1.getNumber(), d2.getNumber()));
+        criteria.setDepartmentNumbers(Arrays.asList(d1.getDeptNo(), d2.getDeptNo()));
         search();
 
         //then
@@ -194,7 +194,7 @@ public class EmployeeFinderTest extends AcceptanceTest {
         employee().withLastName("Kowalski").withDepartment(d3).create();
 
         //when
-        criteria.setDepartmentNumbers(Arrays.asList(d1.getNumber(), d2.getNumber()));
+        criteria.setDepartmentNumbers(Arrays.asList(d1.getDeptNo(), d2.getDeptNo()));
         search();
 
         //then

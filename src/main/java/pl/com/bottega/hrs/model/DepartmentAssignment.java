@@ -1,5 +1,6 @@
 package pl.com.bottega.hrs.model;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.com.bottega.hrs.infrastructure.StandardTimeProvider;
 
@@ -39,9 +40,11 @@ public class DepartmentAssignment {
     private DepartmentAssignmentId id;
 
     @Column(name = "from_date")
+    @Getter
     private LocalDate fromDate;
 
     @Column(name = "to_date")
+    @Getter
     private LocalDate toDate;
 
     DepartmentAssignment() {}
@@ -69,13 +72,4 @@ public class DepartmentAssignment {
     public void unassign() {
         toDate = timeProvider.today();
     }
-
-    public LocalDate getFromDate() {
-        return fromDate;
-    }
-
-    public LocalDate getToDate() {
-        return toDate;
-    }
-
 }

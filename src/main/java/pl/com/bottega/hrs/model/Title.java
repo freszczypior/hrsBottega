@@ -1,5 +1,6 @@
 package pl.com.bottega.hrs.model;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.com.bottega.hrs.infrastructure.StandardTimeProvider;
 
@@ -20,6 +21,7 @@ public class Title {
 
         @Transient
         private TimeProvider timeProvider;
+
 
         @Column(name = "from_date")
         private LocalDate fromDate;
@@ -47,6 +49,7 @@ public class Title {
     @EmbeddedId
     private TitleId id;
 
+    @Getter
     @Column(name = "to_date")
     private LocalDate toDate;
 
@@ -58,9 +61,6 @@ public class Title {
         toDate = TimeProvider.MAX_DATE;
     }
 
-    public String getName() {
-        return id.title;
-    }
 
     public boolean isCurrent() {
         return toDate.isAfter(timeProvider.today());
@@ -73,13 +73,12 @@ public class Title {
     public void terminate() {
         toDate = timeProvider.today();
     }
+    public String getName() {
+        return id.title;
+    }
 
     public LocalDate getFromDate() {
         return id.fromDate;
-    }
-
-    public LocalDate getToDate() {
-        return toDate;
     }
 
     @Autowired

@@ -142,7 +142,7 @@ public class EmployeeTest {
         sut.unassignDepartment(d2);
 
         // then
-        Collection<DepartmentAssignment> history = sut.getDepartmentsHistory();
+        Collection<DepartmentAssignment> history = sut.getDepartmentAssignments();
         assertEquals(
                 Arrays.asList(t0, t1),
                 history.stream().map(DepartmentAssignment::getFromDate).collect(Collectors.toList())
@@ -191,7 +191,7 @@ public class EmployeeTest {
         sut.changeTitle("CEO");
 
         // then
-        Collection<Title> history = sut.getTitleHistory();
+        Collection<Title> history = sut.getTitles();
         assertEquals(3, history.size());
         assertEquals(
                 Arrays.asList("cleaner", "senior cleaner", "CEO"),

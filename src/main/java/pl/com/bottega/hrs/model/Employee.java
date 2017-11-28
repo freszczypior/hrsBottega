@@ -1,5 +1,6 @@
 package pl.com.bottega.hrs.model;
 
+import lombok.Getter;
 import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.com.bottega.hrs.infrastructure.StandardTimeProvider;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "employees")
+@Getter
 public class Employee {
 
     @Id
@@ -78,18 +80,6 @@ public class Employee {
         updateProfile(firstName, lastName, birthDate);
         this.address = address;
         this.gender = gender;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Collection<Salary> getSalaries() {
-        return salaries;
     }
 
     public void changeSalary(Integer newSalary) {
@@ -158,10 +148,6 @@ public class Employee {
                 '}';
     }
 
-    public Collection<DepartmentAssignment> getDepartmentsHistory() {
-        return departmentAssignments;
-    }
-
     public Optional<Title> getCurrentTitle() {
         return titles.stream().filter(Title::isCurrent).findFirst();
     }
@@ -174,30 +160,6 @@ public class Employee {
                 t.terminate();
         });
         titles.add(new Title(this, titleName, timeProvider));
-    }
-
-    public Collection<Title> getTitleHistory() {
-        return titles;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Integer getEmpNo() {
-        return empNo;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public LocalDate getHireDate() {
-        return hireDate;
-    }
-
-    public Gender getGender() {
-        return gender;
     }
 
     public void fire() {

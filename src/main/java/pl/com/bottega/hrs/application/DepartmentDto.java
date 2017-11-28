@@ -1,9 +1,13 @@
 package pl.com.bottega.hrs.application;
 
+import lombok.Getter;
+import lombok.Setter;
 import pl.com.bottega.hrs.model.DepartmentAssignment;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class DepartmentDto {
 
     private LocalDate fromDate, toDate;
@@ -13,30 +17,6 @@ public class DepartmentDto {
     public DepartmentDto(DepartmentAssignment assignment) {
         this.fromDate = assignment.getFromDate();
         this.toDate = assignment.getToDate();
-        this.deptNo = assignment.getDepartment().getNumber();
-    }
-
-    public LocalDate getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(LocalDate fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public LocalDate getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(LocalDate toDate) {
-        this.toDate = toDate;
-    }
-
-    public String getDeptNo() {
-        return deptNo;
-    }
-
-    public void setDeptNo(String deptNo) {
-        this.deptNo = deptNo;
+        this.deptNo = assignment.getDepartment().getDeptNo();
     }
 }
