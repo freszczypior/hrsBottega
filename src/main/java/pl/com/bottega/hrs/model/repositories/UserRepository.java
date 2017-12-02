@@ -11,4 +11,8 @@ public interface UserRepository {
 
     User get(String login);
 
+    User get(Integer id);
+
+    boolean loginOccupied(String login);
+
 }

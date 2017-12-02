@@ -17,5 +17,4 @@ public interface Command {
             errors.add(field, "can't be blank");
         }
     }
-
 }

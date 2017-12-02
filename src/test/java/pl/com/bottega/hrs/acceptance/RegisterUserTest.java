@@ -19,6 +19,7 @@ import pl.com.bottega.hrs.model.repositories.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.swing.text.html.Option;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -27,10 +28,7 @@ import java.util.Optional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class RegisterUserTest {
-
-    @Autowired
-    private UserRepository userRepository;
+public class RegisterUserTest extends AcceptanceTest{
 
     @Autowired
     private RegisterUserHandler registerUserHandler;
@@ -48,11 +46,14 @@ public class RegisterUserTest {
         command.setLogin("Batman");
         command.setPassword("password");
         command.setRepeatedPassword("password");
-        registerUserHandler.handle(command);
+        gateway.execute(command);
 
         //then
         DetailedUserDto detailedUserDto = userFinder.getUserDetails(1);
         assertEquals(Integer.valueOf(1), detailedUserDto.getId());
+        assertEquals("Batman", detailedUserDto.getLogin());
+        //TODO problem lazy loadingu, gdzieś użyć fetch
+        //assertEquals(Arrays.asList("STANDARD"), detailedUserDto.getRole());
     }
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserTwoTimes(){
@@ -61,8 +62,8 @@ public class RegisterUserTest {
         command.setLogin("Batman");
         command.setPassword("password");
         command.setRepeatedPassword("password");
-        registerUserHandler.handle(command);
-        registerUserHandler.handle(command);
+        gateway.execute(command);
+        gateway.execute(command);
     }
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserWithWrongLogin(){
@@ -77,12 +78,18 @@ public class RegisterUserTest {
     public void shouldNotAllowToRegisterUserWithDifferentPasswords(){
         //given
         RegisterUserCommand command = new RegisterUserCommand();
-        command.setLogin("Batman%%!!");
+        command.setLogin("Batman");
         command.setPassword("password1");
         command.setRepeatedPassword("password2");
         gateway.execute(command);
     }
-
-
-
+    @Test(expected = CommandInvalidException.class)
+    public void shouldNotAllowToRegisterUserWithToShortPassword(){
+        //given
+        RegisterUserCommand command = new RegisterUserCommand();
+        command.setLogin("Batman");
+        command.setPassword("pass");
+        command.setRepeatedPassword("pass");
+        gateway.execute(command);
+    }
 }

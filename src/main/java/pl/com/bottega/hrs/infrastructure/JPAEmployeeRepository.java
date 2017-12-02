@@ -17,12 +17,12 @@ public class JPAEmployeeRepository implements EmployeeRepository {
 
     @Override
     public Integer generateNumber() {
-        Integer n = (Integer) entityManager.createQuery(
+        Integer number = (Integer) entityManager.createQuery(
                 "SELECT MAX(e.empNo) + 1 FROM Employee e"
         ).getSingleResult();
-        if (n == null)
+        if (number == null)
             return 1;
-        return n;
+        return number;
     }
 
     @Override

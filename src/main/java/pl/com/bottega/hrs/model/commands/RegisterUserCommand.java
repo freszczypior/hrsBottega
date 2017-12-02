@@ -24,7 +24,7 @@ public class RegisterUserCommand implements Command{
         if (!password.equals(repeatedPassword)){
             errors.add("repeatedPassword", "both passwords must be the same");
         }
-        if (!Pattern.matches("[a-zA-Z0-9]", login)){
+        if (!Pattern.matches("[a-zA-Z0-9]*", login)){
             errors.add("login", "must contain only a-z, A-Z, 0-9");
         }
         if (password.trim().length() < 6){

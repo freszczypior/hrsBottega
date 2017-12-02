@@ -8,7 +8,6 @@ import pl.com.bottega.hrs.model.commands.RegisterUserCommand;
 import pl.com.bottega.hrs.model.commands.ValidationErrors;
 import pl.com.bottega.hrs.model.repositories.UserRepository;
 
-import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
 
 /**
@@ -18,28 +17,27 @@ import javax.transaction.Transactional;
 @Component
 public class RegisterUserHandler implements Handler<RegisterUserCommand> {
 
-    private UserRepository userRepository;
+    private UserRepository repository;
     private ValidationErrors errors;
 
-    public RegisterUserHandler(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public RegisterUserHandler(UserRepository userRepository, ValidationErrors errors) {
+        this.repository = userRepository;
+        this.errors = errors;
     }
-
-
     @Transactional
     @Override
     public void handle(RegisterUserCommand command) {
-        User user = new User(command.getLogin(), command.getPassword());
-        try {
-            userRepository.save(user);
-        }catch (EntityExistsException e){
-            errors.add("ligin", "such login already exists");
+        if (isOccupied(command.getLogin())) {
+            errors.add("login", "such login already exists");
             throw new CommandInvalidException(errors);
-        }
+        }else repository.save(new User(command.getLogin(), command.getPassword()));
     }
 
     @Override
     public Class<? extends Command> getSupportedCommandClass() {
         return RegisterUserCommand.class;
+    }
+    private boolean isOccupied(String login) {
+        return repository.loginOccupied(login);
     }
 }
