@@ -30,10 +30,7 @@ import java.util.Set;
 public class UpdateUserTest extends AcceptanceTest {
 
     @Autowired
-    private RegisterUserHandler registerUserHandler;
-
-    @Autowired
-    private UpdateUserHandler updateUserHandler;
+    private RegisterUserCommand command;
 
     @Autowired
     private UserFinder userFinder;
@@ -43,25 +40,21 @@ public class UpdateUserTest extends AcceptanceTest {
 
     @Before
     public void setUser(){
-        RegisterUserCommand registerCommand = new RegisterUserCommand();
-        registerCommand.setLogin("sutLogin");
-        registerCommand.setPassword("sutPassword");
-        registerCommand.setRepeatedPassword("sutPassword");
-        registerUserHandler.handle(registerCommand);
+        createRegisterUserCommand("sutLogin", "sutPassword", "sutPassword");
     }
 
     @Test
     public void shouldUpdateUser(){
         //when
         UpdateUserCommand updateCommand = new UpdateUserCommand();
-        updateCommand.setId(1);
+        updateCommand.setId(2); // TODO "2" bo przed kazdym testem robi increment user id
         updateCommand.setLogin("newLogin");
         updateCommand.setNewPassword("newPassword");
         updateCommand.setRepeatedNewPassword("newPassword");
         gateway.execute(updateCommand);
 
         //then
-        DetailedUserDto detailedUserDto = userFinder.getUserDetails(1);
+        DetailedUserDto detailedUserDto = userFinder.getUserDetails(2); // TODO "2" bo przed kazdym testem robi increment user id
         assertEquals("newLogin", detailedUserDto.getLogin());
         assertEquals("newPassword", detailedUserDto.getPassword());
     }
@@ -72,6 +65,7 @@ public class UpdateUserTest extends AcceptanceTest {
         updateCommand.setId(1);
         updateCommand.setLogin("sutLogin");
         gateway.execute(updateCommand);
+        cleanUp();
     }
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToUpdateUserWhenGotDifferentPasswords(){
@@ -90,5 +84,11 @@ public class UpdateUserTest extends AcceptanceTest {
         updateCommand.setId(1);
         updateCommand.setRoles(newRoles);
         gateway.execute(updateCommand);
+    }
+    private void createRegisterUserCommand(String login, String password, String newPassword) {
+        command.setLogin(login);
+        command.setPassword(password);
+        command.setRepeatedPassword(newPassword);
+        gateway.execute(command);
     }
 }

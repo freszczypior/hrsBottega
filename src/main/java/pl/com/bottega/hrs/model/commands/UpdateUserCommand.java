@@ -25,9 +25,6 @@ public class UpdateUserCommand implements Command {
     private Set<Role> roles;
 
     public void validate(ValidationErrors errors) {
-//        validatePresence(errors, "login", login);
-//        validatePresence(errors, "password", password);
-//        validatePresence(errors, "password", repeatedPassword);
 
         if (newPassword != null && !newPassword.equals(repeatedNewPassword)) {
             errors.add("repeatedPassword", "both passwords must be the same");

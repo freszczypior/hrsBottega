@@ -32,12 +32,12 @@ public class RegisterUserHandler implements Handler<RegisterUserCommand> {
             throw new CommandInvalidException(errors);
         }else repository.save(new User(command.getLogin(), command.getPassword()));
     }
+    private boolean isOccupied(String login) {
+        return repository.loginOccupied(login);
+    }
 
     @Override
     public Class<? extends Command> getSupportedCommandClass() {
         return RegisterUserCommand.class;
-    }
-    private boolean isOccupied(String login) {
-        return repository.loginOccupied(login);
     }
 }

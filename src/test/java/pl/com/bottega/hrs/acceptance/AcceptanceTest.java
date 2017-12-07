@@ -2,6 +2,7 @@ package pl.com.bottega.hrs.acceptance;
 
 import org.junit.After;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;

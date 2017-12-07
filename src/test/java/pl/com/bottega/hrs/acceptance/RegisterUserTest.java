@@ -2,6 +2,7 @@ package pl.com.bottega.hrs.acceptance;
 
 import static org.junit.Assert.*;
 
+import javafx.print.Collation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.com.bottega.hrs.application.CommandGateway;
 import pl.com.bottega.hrs.application.UserFinder;
-import pl.com.bottega.hrs.application.dtos.BasicUserDto;
 import pl.com.bottega.hrs.application.dtos.DetailedUserDto;
-import pl.com.bottega.hrs.application.handlers.RegisterUserHandler;
-import pl.com.bottega.hrs.application.users.User;
+import pl.com.bottega.hrs.application.users.Role;
 import pl.com.bottega.hrs.model.commands.CommandInvalidException;
 import pl.com.bottega.hrs.model.commands.RegisterUserCommand;
-import pl.com.bottega.hrs.model.repositories.UserRepository;
 
-import javax.persistence.EntityManager;
-import javax.swing.text.html.Option;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by freszczypior on 2017-11-28.
@@ -31,7 +30,7 @@ import java.util.Optional;
 public class RegisterUserTest extends AcceptanceTest{
 
     @Autowired
-    private RegisterUserHandler registerUserHandler;
+    private RegisterUserCommand command;
 
     @Autowired
     private CommandGateway gateway;
@@ -42,54 +41,44 @@ public class RegisterUserTest extends AcceptanceTest{
     @Test
     public void shouldRegisterUser(){
         //given
-        RegisterUserCommand command = new RegisterUserCommand();
-        command.setLogin("Batman");
-        command.setPassword("password");
-        command.setRepeatedPassword("password");
-        gateway.execute(command);
-
+        createRegisterUserCommand("Batman", "password", "password");
         //then
         DetailedUserDto detailedUserDto = userFinder.getUserDetails(1);
         assertEquals(Integer.valueOf(1), detailedUserDto.getId());
         assertEquals("Batman", detailedUserDto.getLogin());
-        //TODO problem lazy loadingu, gdzieś użyć fetch
-        //assertEquals(Arrays.asList("STANDARD"), detailedUserDto.getRole());
+        Set<Role> expected = new HashSet<>();
+        expected.add(Role.STANDARD);
+        assertEquals(expected, detailedUserDto.getRoles());
     }
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserTwoTimes(){
         //given
-        RegisterUserCommand command = new RegisterUserCommand();
-        command.setLogin("Batman");
-        command.setPassword("password");
-        command.setRepeatedPassword("password");
-        gateway.execute(command);
-        gateway.execute(command);
+        createRegisterUserCommand("Batman", "password", "password");
+        createRegisterUserCommand("Batman", "password", "password");
     }
+
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserWithWrongLogin(){
         //given
-        RegisterUserCommand command = new RegisterUserCommand();
-        command.setLogin("Batman%%!!");
-        command.setPassword("password");
-        command.setRepeatedPassword("password");
-        gateway.execute(command);
+        createRegisterUserCommand("Batman%%!!", "password", "password");
     }
+
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserWithDifferentPasswords(){
         //given
-        RegisterUserCommand command = new RegisterUserCommand();
-        command.setLogin("Batman");
-        command.setPassword("password1");
-        command.setRepeatedPassword("password2");
-        gateway.execute(command);
+        createRegisterUserCommand("Batman", "password1", "password2");
     }
+
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserWithToShortPassword(){
         //given
-        RegisterUserCommand command = new RegisterUserCommand();
-        command.setLogin("Batman");
-        command.setPassword("pass");
-        command.setRepeatedPassword("pass");
+        createRegisterUserCommand("Batman", "pass", "pass");
+    }
+
+    private void createRegisterUserCommand(String login, String password, String newPassword) {
+        command.setLogin(login);
+        command.setPassword(password);
+        command.setRepeatedPassword(newPassword);
         gateway.execute(command);
     }
 }

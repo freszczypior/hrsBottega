@@ -20,12 +20,12 @@ public class DetailedUserDto {
 
     private String password;
 
-    private Set<Role> role;
+    private Set<Role> roles;
 
     public DetailedUserDto(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.password = user.getPassword();
-        this.role = user.getRoles();
+        this.roles = user.getRoles();
     }
 }

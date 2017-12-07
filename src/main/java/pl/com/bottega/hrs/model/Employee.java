@@ -1,10 +1,7 @@
 package pl.com.bottega.hrs.model;
 
 import lombok.Getter;
-import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.com.bottega.hrs.infrastructure.StandardTimeProvider;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;

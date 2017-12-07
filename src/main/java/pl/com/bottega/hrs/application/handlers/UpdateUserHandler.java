@@ -18,7 +18,6 @@ import javax.transaction.Transactional;
 public class UpdateUserHandler implements Handler<UpdateUserCommand> {
 
     private UserRepository repository;
-
     private ValidationErrors errors;
 
     public UpdateUserHandler(UserRepository repository, ValidationErrors errors) {

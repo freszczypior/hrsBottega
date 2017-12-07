@@ -2,6 +2,7 @@ package pl.com.bottega.hrs.model.commands;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
 
@@ -10,6 +11,7 @@ import java.util.regex.Pattern;
  */
 @Getter
 @Setter
+@Component
 public class RegisterUserCommand implements Command{
 
     private String login;

@@ -1,35 +1,31 @@
 package pl.com.bottega.hrs.application.users;
 
 import lombok.Getter;
+import pl.com.bottega.hrs.model.Title;
 import pl.com.bottega.hrs.model.commands.UpdateUserCommand;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="users")
+@Getter
 public class User {
 
-    @Getter
     @Id
     @GeneratedValue
     private Integer id;
 
-    @Getter
     private String login;
 
-    @Getter
     private String password;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id")
     )
-    @Getter
-    @Column(name = "role")
+    @Column(name = "roles")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
