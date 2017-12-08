@@ -58,13 +58,4 @@ public class User {
         if (roles != null && !roles.isEmpty())
             this.roles = roles;
     }
-//
-//    public void updateProfile(UpdateUserCommand command) {
-//        if (command.getLogin() != null)
-//            this.login = command.getLogin();
-//        if (command.getNewPassword() != null)
-//            this.password = command.getNewPassword();
-//        if (!command.getRoles().isEmpty())
-//            this.roles = command.getRoles();
-//    }
 }

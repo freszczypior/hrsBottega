@@ -30,8 +30,10 @@ public class RegisterUserHandler implements Handler<RegisterUserCommand> {
         if (isOccupied(command.getLogin())) {
             errors.add("login", "such login already exists");
             throw new CommandInvalidException(errors);
-        }else repository.save(new User(command.getLogin(), command.getPassword()));
+        }else
+            repository.save(new User(command.getLogin(), command.getPassword()));
     }
+
     private boolean isOccupied(String login) {
         return repository.loginOccupied(login);
     }

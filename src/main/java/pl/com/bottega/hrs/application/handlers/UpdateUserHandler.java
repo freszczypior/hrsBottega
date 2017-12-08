@@ -28,13 +28,17 @@ public class UpdateUserHandler implements Handler<UpdateUserCommand> {
     @Override
     @Transactional
     public void handle(UpdateUserCommand command) {
-        if ((command.getLogin() != null) && (isOccupied(command.getLogin()))) {
+        if (isPresent(command.getLogin()) && isOccupied(command.getLogin())) {
             errors.add("login", "such login already exists");
             throw new CommandInvalidException(errors);
         }
         User user = repository.get(command.getId());
         user.updateProfile(command.getLogin(), command.getNewPassword(), command.getRoles());
         repository.save(user);
+    }
+
+    private boolean isPresent(String login) {
+        return login != null;
     }
 
     @Override

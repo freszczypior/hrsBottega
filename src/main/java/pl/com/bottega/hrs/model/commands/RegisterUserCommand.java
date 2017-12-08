@@ -18,6 +18,9 @@ public class RegisterUserCommand implements Command{
     private String password;
     private String repeatedPassword;
 
+    private final String LOGIN_PATTERN = "[a-zA-Z0-9]*";
+    private final String PASSWORD_ANTY_PATTERN = "[ ]*";
+
     public void validate(ValidationErrors errors){
         validatePresence(errors, "login", login);
         validatePresence(errors, "password", password);
@@ -26,11 +29,11 @@ public class RegisterUserCommand implements Command{
         if (!password.equals(repeatedPassword)){
             errors.add("repeatedPassword", "both passwords must be the same");
         }
-        if (!Pattern.matches("[a-zA-Z0-9]*", login)){
+        if (!Pattern.matches(LOGIN_PATTERN, login)){
             errors.add("login", "must contain only a-z, A-Z, 0-9");
         }
-        if (password.trim().length() < 6){
-            errors.add("password", "password must contain more then six characters");
+        if (Pattern.matches(PASSWORD_ANTY_PATTERN, password) && password.length() < 6){
+            errors.add("password", "password must contain more then six characters and shouldn't contains spaces");
         }
     }
 

@@ -38,9 +38,6 @@ public class UpdateUserTest extends AcceptanceTest {
     @Autowired
     private CommandGateway gateway;
 
-    @Autowired
-    private UpdateUserHandler updateUserHandler;
-
     @Before
     public void setUser(){
         createRegisterUserCommand("sutLogin", "sutPassword", "sutPassword");
@@ -50,14 +47,14 @@ public class UpdateUserTest extends AcceptanceTest {
     public void shouldUpdateUser(){
         //when
         UpdateUserCommand updateCommand = new UpdateUserCommand();
-        updateCommand.setId(2); // TODO "2" bo przed kazdym testem robi increment user id
+        updateCommand.setId(1);
         updateCommand.setLogin("newLogin");
         updateCommand.setNewPassword("newPassword");
         updateCommand.setRepeatedNewPassword("newPassword");
         gateway.execute(updateCommand);
 
         //then
-        DetailedUserDto detailedUserDto = userFinder.getUserDetails(2); // TODO "2" bo przed kazdym testem robi increment user id
+        DetailedUserDto detailedUserDto = userFinder.getUserDetails(1);
         assertEquals("newLogin", detailedUserDto.getLogin());
         assertEquals("newPassword", detailedUserDto.getPassword());
     }

@@ -24,15 +24,20 @@ public class UpdateUserCommand implements Command {
 
     private Set<Role> roles;
 
+    private final String LOGIN_PATTERN = "[a-zA-Z0-9]*";
+    private final String PASSWORD_ANTY_PATTERN = "[ ]*";
+
     public void validate(ValidationErrors errors) {
+
+        validatePresence(errors, "id", id);
 
         if (newPassword != null && !newPassword.equals(repeatedNewPassword)) {
             errors.add("repeatedPassword", "both passwords must be the same");
         }
-        if (login != null && !Pattern.matches("[a-zA-Z0-9]*", login)) {
+        if (login != null && !Pattern.matches(LOGIN_PATTERN, login)) {
             errors.add("login", "must contain only a-z, A-Z, 0-9");
         }
-        if (newPassword != null && newPassword.trim().length() < 6) {
+        if (newPassword != null && Pattern.matches(PASSWORD_ANTY_PATTERN, newPassword) && newPassword.length() < 6) {
             errors.add("password", "password must contain more then six characters");
         }
         if (roles != null && roles.isEmpty()){
