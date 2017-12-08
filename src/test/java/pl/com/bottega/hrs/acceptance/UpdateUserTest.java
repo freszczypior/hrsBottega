@@ -38,6 +38,9 @@ public class UpdateUserTest extends AcceptanceTest {
     @Autowired
     private CommandGateway gateway;
 
+    @Autowired
+    private UpdateUserHandler updateUserHandler;
+
     @Before
     public void setUser(){
         createRegisterUserCommand("sutLogin", "sutPassword", "sutPassword");

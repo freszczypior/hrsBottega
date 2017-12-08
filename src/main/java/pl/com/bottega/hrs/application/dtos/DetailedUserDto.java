@@ -5,6 +5,7 @@ import lombok.Setter;
 import pl.com.bottega.hrs.application.users.Role;
 import pl.com.bottega.hrs.application.users.User;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,6 +27,6 @@ public class DetailedUserDto {
         this.id = user.getId();
         this.login = user.getLogin();
         this.password = user.getPassword();
-        this.roles = user.getRoles();
+        this.roles = new HashSet<>(user.getRoles());
     }
 }

@@ -20,7 +20,7 @@ public class User {
 
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id")

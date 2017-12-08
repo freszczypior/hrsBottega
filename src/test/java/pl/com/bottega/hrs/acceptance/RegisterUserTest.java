@@ -46,9 +46,7 @@ public class RegisterUserTest extends AcceptanceTest{
         DetailedUserDto detailedUserDto = userFinder.getUserDetails(1);
         assertEquals(Integer.valueOf(1), detailedUserDto.getId());
         assertEquals("Batman", detailedUserDto.getLogin());
-        Set<Role> expected = new HashSet<>();
-        expected.add(Role.STANDARD);
-        assertEquals(expected, detailedUserDto.getRoles());
+        assertEquals(new HashSet<>(Arrays.asList(Role.STANDARD)), detailedUserDto.getRoles());
     }
     @Test(expected = CommandInvalidException.class)
     public void shouldNotAllowToRegisterUserTwoTimes(){
