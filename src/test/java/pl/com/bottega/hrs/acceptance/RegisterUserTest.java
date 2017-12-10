@@ -2,7 +2,6 @@ package pl.com.bottega.hrs.acceptance;
 
 import static org.junit.Assert.*;
 
-import javafx.print.Collation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +12,10 @@ import pl.com.bottega.hrs.application.UserFinder;
 import pl.com.bottega.hrs.application.dtos.DetailedUserDto;
 import pl.com.bottega.hrs.application.users.Role;
 import pl.com.bottega.hrs.model.commands.CommandInvalidException;
-import pl.com.bottega.hrs.model.commands.RegisterUserCommand;
+import pl.com.bottega.hrs.application.users.commands.RegisterUserCommand;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by freszczypior on 2017-11-28.

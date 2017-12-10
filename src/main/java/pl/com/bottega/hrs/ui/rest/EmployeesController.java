@@ -3,9 +3,12 @@ package pl.com.bottega.hrs.ui.rest;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.hrs.application.*;
 import pl.com.bottega.hrs.application.dtos.DetailedEmployeeDto;
+import pl.com.bottega.hrs.application.users.Role;
+import pl.com.bottega.hrs.infrastructure.aspects.Secured;
 import pl.com.bottega.hrs.model.commands.*;
 
 @RestController
+@Secured(roles = Role.ADMIN) // dodałem role bo testowaliśmy czy można pobrać pracowników jak ma się konkretną, wymaganą przez aspeck rolę
 public class EmployeesController {
 
     private EmployeeFinder employeeFinder;

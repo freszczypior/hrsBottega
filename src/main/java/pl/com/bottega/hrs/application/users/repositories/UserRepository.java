@@ -1,4 +1,4 @@
-package pl.com.bottega.hrs.model.repositories;
+package pl.com.bottega.hrs.application.users.repositories;
 
 import pl.com.bottega.hrs.application.users.User;
 
@@ -15,4 +15,5 @@ public interface UserRepository {
 
     boolean loginOccupied(String login);
 
+    User get(String login, String password);
 }

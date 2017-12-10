@@ -29,5 +29,4 @@ public class AcceptanceTest {
             return null;
         });
     }
-
 }

@@ -1,13 +1,11 @@
 package pl.com.bottega.hrs.infrastructure;
 
 import org.springframework.stereotype.Component;
-import pl.com.bottega.hrs.application.UserSearchCriteria;
-import pl.com.bottega.hrs.application.UserSearchResults;
-import pl.com.bottega.hrs.application.dtos.BasicUserDto;
 import pl.com.bottega.hrs.application.users.User;
-import pl.com.bottega.hrs.model.repositories.UserRepository;
+import pl.com.bottega.hrs.application.users.repositories.UserRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -38,8 +36,9 @@ public class JPAUserRepository implements UserRepository {
             throw new NoSuchEntityException();
         return user;
     }
+
     @Override
-    public User get(Integer id){
+    public User get(Integer id) {
         User user = entityManager.find(User.class, id);
         if (user == null)
             throw new NoSuchEntityException();
@@ -51,5 +50,19 @@ public class JPAUserRepository implements UserRepository {
         Query query = entityManager.createQuery("SELECT COUNT(*) FROM User u WHERE u.login LIKE :login");
         query.setParameter("login", login);
         return ((Long) (query.getSingleResult())).intValue() > 0 ? true : false;
+    }
+
+    @Override
+    public User get(String login, String password) {
+        try {
+            User user = (User) entityManager.createQuery("SELECT u FROM User u WHERE u.login LIKE :login " +
+                    "AND u.password LIKE :password").
+                    setParameter("login", login).
+                    setParameter("password", password).
+                    getSingleResult();
+            return user;
+        } catch (NoResultException ex) {
+            throw new NoSuchEntityException();
+        }
     }
 }

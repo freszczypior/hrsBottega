@@ -1,11 +1,10 @@
 package pl.com.bottega.hrs.application.users;
 
 import lombok.Getter;
-import pl.com.bottega.hrs.model.Title;
-import pl.com.bottega.hrs.model.commands.UpdateUserCommand;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="users")
@@ -25,7 +24,7 @@ public class User {
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id")
     )
-    @Column(name = "roles")
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
@@ -57,5 +56,13 @@ public class User {
             this.password = password;
         if (roles != null && !roles.isEmpty())
             this.roles = roles;
+    }
+
+    public Set<Role> getRoles(){
+        return new HashSet<>(roles);
+    }
+
+    public boolean hasRoles(Role[] requiredRoles) {
+        return roles.containsAll(Arrays.stream(requiredRoles).collect(Collectors.toList()));
     }
 }

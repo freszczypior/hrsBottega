@@ -1,10 +1,10 @@
-package pl.com.bottega.hrs.model.commands;
+package pl.com.bottega.hrs.application.users.commands;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-import java.util.regex.Pattern;
+import pl.com.bottega.hrs.model.commands.Command;
+import pl.com.bottega.hrs.model.commands.ValidationErrors;
 
 /**
  * Created by freszczypior on 2017-11-28.
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 @Component
-public class RegisterUserCommand implements Command{
+public class RegisterUserCommand implements Command {
 
     private String login;
     private String password;
@@ -29,10 +29,10 @@ public class RegisterUserCommand implements Command{
         if (!password.equals(repeatedPassword)){
             errors.add("repeatedPassword", "both passwords must be the same");
         }
-        if (!Pattern.matches(LOGIN_PATTERN, login)){
+        if (!login.matches(LOGIN_PATTERN)){
             errors.add("login", "must contain only a-z, A-Z, 0-9");
         }
-        if (Pattern.matches(PASSWORD_ANTY_PATTERN, password) && password.length() < 6){
+        if (password.matches(PASSWORD_ANTY_PATTERN) || password.length() < 6){
             errors.add("password", "password must contain more then six characters and shouldn't contains spaces");
         }
     }

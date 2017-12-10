@@ -11,14 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import pl.com.bottega.hrs.application.CommandGateway;
 import pl.com.bottega.hrs.application.UserFinder;
 import pl.com.bottega.hrs.application.dtos.DetailedUserDto;
-import pl.com.bottega.hrs.application.handlers.RegisterUserHandler;
-import pl.com.bottega.hrs.application.handlers.UpdateUserHandler;
 import pl.com.bottega.hrs.application.users.Role;
 import pl.com.bottega.hrs.model.commands.CommandInvalidException;
-import pl.com.bottega.hrs.model.commands.RegisterUserCommand;
-import pl.com.bottega.hrs.model.commands.UpdateUserCommand;
+import pl.com.bottega.hrs.application.users.commands.RegisterUserCommand;
+import pl.com.bottega.hrs.application.users.commands.UpdateUserCommand;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 import pl.com.bottega.hrs.application.users.User;
 import pl.com.bottega.hrs.model.commands.Command;
 import pl.com.bottega.hrs.model.commands.CommandInvalidException;
-import pl.com.bottega.hrs.model.commands.RegisterUserCommand;
+import pl.com.bottega.hrs.application.users.commands.RegisterUserCommand;
 import pl.com.bottega.hrs.model.commands.ValidationErrors;
-import pl.com.bottega.hrs.model.repositories.UserRepository;
+import pl.com.bottega.hrs.application.users.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 
@@ -27,11 +27,15 @@ public class RegisterUserHandler implements Handler<RegisterUserCommand> {
     @Transactional
     @Override
     public void handle(RegisterUserCommand command) {
+        validateLoginIsFree(command);
+        repository.save(new User(command.getLogin(), command.getPassword()));
+    }
+
+    private void validateLoginIsFree(RegisterUserCommand command){
         if (isOccupied(command.getLogin())) {
             errors.add("login", "such login already exists");
             throw new CommandInvalidException(errors);
-        }else
-            repository.save(new User(command.getLogin(), command.getPassword()));
+        }
     }
 
     private boolean isOccupied(String login) {
